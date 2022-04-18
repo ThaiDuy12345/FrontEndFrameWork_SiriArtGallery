@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/Assignment/Assignment.css">
+    <script src="/Bootstrap_Jquery/js/angular.min.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular-route.js"></script>
+    <script src="/Assignment/Js/ArrayJS.js"></script>
+    <script src="/Assignment/Js/SessionsJS.js"></script>
+    </link>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('mainController', function ($scope) {
+            $scope.email = null;
+            $scope.load = function () {
+                if (getSessions("Email") != null) {
+                    $scope.email = getSessions("Email");
+                } else {
+                    $scope.email = null;
+                }
+            }
+            $scope.logout = function () {
+                alert("Đăng xuất thành công");
+                removeAllSessions();
+                $scope.email = null;
+                location.reload();
+            }
+        });
+    </script>
+</head>
+
+<body onscroll="changeColor()" ng-app="myApp" ng-controller="mainController" ng-init="load()">
+    <div class="truecontainer">
+        <nav ng-include="'/Assignment/nav.html'" id="navBarFunction" class="navbar-expand-lg position-fixed w-100"
+            style="z-index:2;">
+        </nav>
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <div class="mb-2 row m-0">
+            <article class="col-sm-8 row m-0">
+                <div class="bai1Component">
+                    <div class="jumpotron m-1 text-dark"
+                        style="background-color: #bd7fae00;font-family: 'Roboto Mono', monospace;">
+                        <h1 class="h3 text-center font-italic font-weight-bold pt-4 pb-4 pl-3 pr-3"
+                            style="background-color: #b774a900"><i class="bi bi-brush"></i>
+                            Art đầu tay gallery
+                        </h1><br />
+                        <p class="text-justify pl-3 pr-3 pb-3">Dưới đây là những bức tranh mình vẽ trong những ngày đầu
+                            mình mới học vẽ, mục đích mình lập ra thư viện này là để chứng minh cho các bạn rằng mình
+                            không có hoa tay, và trạm xuất phát để trở thành artist của chúng ta đều như nhau!!
+                        </p>
+                    </div>
+                </div>
+                <div class="bai3Component w-100" style="padding:7px">
+                    <div id="Braixen" class="row mb-3 p-3" style="background-color:#e0f0e4">
+                        <div class="card mr-2 col-lg-6">
+                            <img src="img/1.png" class="w-100">
+                        </div>
+                        <div class="col-lg-5 text-dark">
+                            <div class="" style="font-size:30px">Name: <p class="d-inline-block"
+                                    style="color:rgb(73, 73, 73)">Braixen</p>
+                            </div>
+                            <hr class="w-100" />
+                            <div class="">Release date: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">28-10-2020</p>
+                            </div>
+                            <div class="">Description: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">One of a starter Pokemon in the series Pokemon:
+                                    Pokemon X/Y, i was passion about Braixen after evole from Fennekin</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="CafeMorning" class="row mb-3 p-3" style="background-color:#e0f0e4">
+                        <div class="card mr-2 col-lg-6">
+                            <img src="img/2.jpg" class="w-100">
+                        </div>
+                        <div class="col-lg-5 text-dark">
+                            <div class="" style="font-size:30px">Name: <p class="d-inline-block"
+                                    style="color:rgb(73, 73, 73)">Cafe morning</p>
+                            </div>
+                            <hr class="w-100" />
+                            <div class="">Release date: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">09-12-2020</p>
+                            </div>
+                            <div class="">Description: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">This is my second full draw, was inspired by the view
+                                    when having a morning coffe in The Coffee House coffee shop!!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="HappyNewYear" class="row mb-3 p-3" style="background-color:#e0f0e4">
+                        <div class="card mr-2 col-lg-6">
+                            <img src="img/3.png" class="w-100">
+                        </div>
+                        <div class="col-lg-5 text-dark">
+                            <div class="" style="font-size:30px">Name: <p class="d-inline-block"
+                                    style="color:rgb(73, 73, 73)">Happy new year</p>
+                            </div>
+                            <hr class="w-100" />
+                            <div class="">Release date: 01-01-2021<p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)"></p>
+                            </div>
+                            <div class="">Description: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">My fellow artist friends were making a trend art they
+                                    like call "Happy new year art", so i made one for myself...First drawing in 2021</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="RubikAndCoffee" class="row mb-3 p-3" style="background-color:#e0f0e4">
+                        <div class="card mr-2 col-lg-6">
+                            <img src="img/4.png" class="w-100">
+                        </div>
+                        <div class="col-lg-5 text-dark">
+                            <div class="" style="font-size:30px">Name: <p class="d-inline-block"
+                                    style="color:rgb(73, 73, 73)">Rubik and coffee</p>
+                            </div>
+                            <hr class="w-100" />
+                            <div class="">Release date: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">14-03-2021</p>
+                            </div>
+                            <div class="">Description: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">This one is one of my favorite art, it was made in
+                                    March 2021, i drew it from my imagination and only using refs from my casual stuffs
+                                    in my house</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="LuckyMushroom" class="row mb-3 p-3" style="background-color:#e0f0e4">
+                        <div class="card mr-2 col-lg-6">
+                            <img src="img/5.png" class="w-100">
+                        </div>
+                        <div class="col-lg-5 text-dark">
+                            <div class="" style="font-size:30px">Name: <p class="d-inline-block"
+                                    style="color:rgb(73, 73, 73)">Lucky mushroom</p>
+                            </div>
+                            <hr class="w-100" />
+                            <div class="">Release date: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">19-03-2021</p>
+                            </div>
+                            <div class="">Description: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">My sister was taking an exam to go the college that
+                                    year, but her academic level might not be enough, so i drew her a "lucky mushroom"
+                                    and sent to her hopefully help her by making her cheer up and get enough confident
+                                    to pass the exam. Apparently, her score was way high up then the education benchmark
+                                    tho</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <aside ng-include="'/Assignment/Art/aside.html'" class="col-sm-4 mr-auto ml-auto">
+
+            </aside>
+        </div>
+    </div>
+</body>
+<footer ng-include="'/Assignment/footer.html'">
+
+</footer>
+
+</html>

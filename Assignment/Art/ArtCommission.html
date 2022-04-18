@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/Assignment/Assignment.css">
+    <script src="/Bootstrap_Jquery/js/angular.min.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular-route.js"></script>
+    <script src="/Assignment/Js/ArrayJS.js"></script>
+    <script src="/Assignment/Js/SessionsJS.js"></script>
+    </link>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('mainController', function ($scope) {
+            $scope.email = null;
+            $scope.load = function () {
+                if (getSessions("Email") != null) {
+                    $scope.email = getSessions("Email");
+                } else {
+                    $scope.email = null;
+                }
+            }
+            $scope.logout = function () {
+                alert("Đăng xuất thành công");
+                removeAllSessions();
+                $scope.email = null;
+                location.reload();
+            }
+        });
+    </script>
+</head>
+
+<body onscroll="changeColor()" ng-app="myApp" ng-controller="mainController" ng-init="load()">
+    <div class="truecontainer">
+        <nav ng-include="'/Assignment/nav.html'" id="navBarFunction" class="navbar-expand-lg position-fixed w-100"
+            style="z-index:2;">
+        </nav>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="mb-2 row m-0">
+            <article class="col-sm-8 row m-0">
+                <div class="bai1Component">
+                    <div class="jumpotron m-1 text-dark"
+                        style="background-color: #bd7fae00;font-family: 'Roboto Mono', monospace;">
+                        <h1 class="h3 text-center font-italic font-weight-bold pt-4 pb-4 pl-3 pr-3"
+                            style="background-color: #b774a900"><i class="bi bi-brush"></i>
+                            Commission - Vẽ thuê
+                        </h1><br />
+                        <p class="text-justify pl-3 pr-3 pb-3">Vẽ thuê là một hình thức mua bán, trong đó Artist(Hoạ sĩ)
+                            nhận đơn hàng, yêu cầu từ các client(Khách hàng) và được trả tiền sau khi artist hoàn thành
+                            đơn đó. Ở đây các khách hàng thường đưa ra yêu cầu(Detail order) về màu sắc, dáng đứng, dáng
+                            đi của nhân vật,...Nếu các bạn có ai muốn mở commission mà chưa có kinh nghiệm thì có thể để
+                            lại feedback để được hỗ trợ vấn đề đang vướn phải nhé
+                        </p>
+                    </div>
+                </div>
+                <div class="bai3Component w-100" style="padding:7px">
+                    <div id="Commission1" class="row mb-3 p-3" style="background-color:#e0f0e4">
+                        <div class="card mr-2 col-lg-6">
+                            <img src="img/c1.png" class="w-100">
+                        </div>
+                        <div class="col-lg-5 text-dark">
+                            <div class="" style="font-size:30px">Name: <p class="d-inline-block"
+                                    style="color:rgb(73, 73, 73)">Commission 1</p>
+                            </div>
+                            <hr class="w-100" />
+                            <div class="">Client: <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">
+                                </p>
+                                Blitzel</p>
+                            </div>
+                            <div class="">Detail Order: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">
+                                    Character
+                                </p>
+                            </div>
+                            <div class="">Release date: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">06-01-2022</p>
+                            </div>
+                            <div class="">Price: <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">
+                                    17$</p>
+                            </div>
+                            <div class="">Description: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">This is the first commission that i recieve from a
+                                    person name "Blitzel", the character seem easy to look but pretty hard to draw
+                                    because you have to master the "Anatomy skill"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Commission2" class="row mb-3 p-3" style="background-color:#e0f0e4">
+                        <div class="card mr-2 col-lg-6">
+                            <img src="img/c2.png" class="w-100">
+                        </div>
+                        <div class="col-lg-5 text-dark">
+                            <div class="" style="font-size:30px">Name: <p class="d-inline-block"
+                                    style="color:rgb(73, 73, 73)">Commission 2</p>
+                            </div>
+                            <hr class="w-100" />
+                            <div class="">Client: <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">
+                                    Color
+                                </p>
+                            </div>
+                            <div class="">Detail Order: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">
+                                    Character</p>
+                            </div>
+                            <div class="">Release date: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">17-02-2022</p>
+                            </div>
+                            <div class="">Price: <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">$
+                                    17$
+                                </p>
+                            </div>
+                            <div class="">Description: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">After the first commission, i started to recieve
+                                    another commission from another person on twitter name "Color", his character was
+                                    pretty difficult to draw because of the detail, but luckily the client only ask me
+                                    to draw the character, nothing else are matter!!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Commission3" class="row mb-3 p-3" style="background-color:#e0f0e4">
+                        <div class="card mr-2 col-lg-6">
+                            <img src="img/c3.png" class="w-100">
+                        </div>
+                        <div class="col-lg-5 text-dark">
+                            <div class="" style="font-size:30px">Name: <p class="d-inline-block"
+                                    style="color:rgb(73, 73, 73)">Commssion 3</p>
+                            </div>
+                            <hr class="w-100" />
+                            <div class="">Client: <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">
+                                    Sinre
+                                </p>
+                            </div>
+                            <div class="">Detail Order:
+                                <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">
+                                    Character, Hair Color, Eyes Color
+                                </p>
+                            </div>
+                            <div class="">Release date: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">08-03-2022</p>
+                            </div>
+                            <div class="">Price: <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">$
+                                    21$
+                                </p>
+                            </div>
+                            <div class="">Description: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">The client this time had me drawing a lizard type
+                                    character which was not in my type, i haven't seen any character like that before so
+                                    it did take me sometime to draw but still manage to finish and the client loved it
+                                    as well</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Commission4" class="row mb-3 p-3" style="background-color:#e0f0e4">
+                        <div class="card mr-2 col-lg-6">
+                            <img src="img/c4.png" class="w-100">
+                        </div>
+                        <div class="col-lg-5 text-dark">
+                            <div class="" style="font-size:30px">Name: <p class="d-inline-block"
+                                    style="color:rgb(73, 73, 73)">Commission 4</p>
+                            </div>
+                            <hr class="w-100" />
+                            <div class="">Client: <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">
+                                    Blitzel
+                                </p>
+                            </div>
+                            <div class="">Detail Order: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">
+                                    Character, Pose</p>
+                            </div>
+                            <div class="">Release date: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">11-03-2022</p>
+                            </div>
+                            <div class="">Price: <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">$
+                                    21$</p>
+                            </div>
+                            <div class="">Description: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">The character that i have drew that time was
+                                    especially a gift to client's best friend birthday, the pose is the thing that have
+                                    taken a while to draw but still made it in time before his best friend birthday</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Commission5" class="row mb-3 p-3" style="background-color:#e0f0e4">
+                        <div class="card mr-2 col-lg-6">
+                            <img src="img/c5.png" class="w-100">
+                        </div>
+                        <div class="col-lg-5 text-dark">
+                            <div class="" style="font-size:30px">Name: <p class="d-inline-block"
+                                    style="color:rgb(73, 73, 73)">Commission 5</p>
+                            </div>
+                            <hr class="w-100" />
+                            <div class="">Client: <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">
+                                    Crumb
+                                </p>
+                            </div>
+                            <div class="">Detail Order: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">
+                                    Character, Pose, Number of characters</p>
+                            </div>
+                            <div class="">Release date: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">01-04-2022</p>
+                            </div>
+                            <div class="">Price: <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">$
+                                    37$</p>
+                            </div>
+                            <div class="">Description: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">Two characters in the art are bestfriend. Not only one
+                                    client have ordered this commission but two clients as the same time. One of the art
+                                    that i have spend so much time in making it</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Commission6" class="row mb-3 p-3" style="background-color:#e0f0e4">
+                        <div class="card mr-2 col-lg-6">
+                            <img src="img/c6.png" class="w-100">
+                        </div>
+                        <div class="col-lg-5 text-dark">
+                            <div class="" style="font-size:30px">Name: <p class="d-inline-block"
+                                    style="color:rgb(73, 73, 73)">Commission 6</p>
+                            </div>
+                            <hr class="w-100" />
+                            <div class="">Client: <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">
+                                    Petrus
+                                </p>
+                            </div>
+                            <div class="">Detail Order: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">
+                                    Character</p>
+                            </div>
+                            <div class="">Release date: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">08-04-2022</p>
+                            </div>
+                            <div class="">Price: <p class="font-italic d-inline-block" style="color:rgb(73, 73, 73)">$
+                                    40$</p>
+                            </div>
+                            <div class="">Description: <p class="font-italic d-inline-block"
+                                    style="color:rgb(73, 73, 73)">This character is my client's original character.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <aside ng-include="'/Assignment/Art/aside.html'" class="col-sm-4 mr-auto ml-auto">
+
+            </aside>
+        </div>
+        <footer ng-include="'/Assignment/footer.html'">
+
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<button class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon text-dark">More</span>
+</button>
+<div class="nav">
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <div class="nav-brand p-2">
+            <img style="width:75px" src="/Assignment/Logo.png"> <a href="/Assignment/index.html"
+                class="nav-item text-dark" style="font-size:20x">Siri
+                Gallery</a>
+        </div>
+        <div class="navbar-nav">
+            <div class="nav-item pl-5 pr-5 m-auto">
+                <a href="/Assignment/TrangTracNghiem/Question.html" class="nav-link"><i
+                        class="bi bi-question-square-fill"></i>
+                    Art
+                    tests</a>
+            </div>
+            <div class="nav-item pl-5 pr-5 m-auto">
+                <a class="nav-link" href="/Assignment/TrangBoTro/Contact.html"><i class="bi bi-telephone-fill"></i>
+                    Contact</a>
+            </div>
+            <div class="nav-item pl-5 pr-5 m-auto">
+                <a class="nav-link" href="/Assignment/TrangBoTro/Feedback.html"><i class="bi bi-send-check"></i>
+                    Feedback</a>
+            </div>
+            <div class="nav-item pl-5 pr-5 m-auto">
+                <a href="/Assignment/TrangBoTro/Question.html" class="nav-link"><i class="bi bi-book"></i> Question</a>
+            </div>
+            <div class="nav-item pl-5 pr-5 m-auto dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="bi bi-person-square"></i>
+                    Account</a>
+                <div class="dropdown-menu">
+                    <a ng-if="email == null" href="/Assignment/Login/login.html" class="dropdown-item"><i
+                            class="bi bi-arrow-left-square"></i> Log
+                        in</a>
+                    <button ng-if="email != null" ng-click="logout()" class="dropdown-item"><i
+                            class="bi bi-arrow-left-square"></i> Log out</button>
+                    <a ng-if="email != null" href="/Assignment/Login/Setting.html" class="dropdown-item"><i
+                            class="bi bi-wrench-adjustable"></i> Setting</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

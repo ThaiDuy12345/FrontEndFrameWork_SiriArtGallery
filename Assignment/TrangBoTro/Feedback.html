@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/Assignment/Assignment.css">
+    <script src="/Bootstrap_Jquery/js/angular.min.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular-route.js"></script>
+    <script src="/Assignment/Js/ArrayJS.js"></script>
+    <script src="/Assignment/Js/SessionsJS.js"></script>
+    </link>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('mainController', function ($scope) {
+            $scope.email = null;
+            $scope.load = function () {
+                if (getSessions("Email") != null) {
+                    $scope.email = getSessions("Email");
+                    $scope.userInfor = getAccount($scope.email);
+                } else {
+                    $scope.email = null;
+                    location.href = "/Assignment/Login/login.html";
+                }
+            }
+            $scope.logout = function () {
+                alert("Đăng xuất thành công");
+                removeAllSessions();
+                $scope.email = null;
+                location.reload();
+            }
+            $scope.send = function () {
+                alert('Đã gửi email cho chủ web, cảm ơn vì đã feedback nhé. Siri sẽ cố gắng liên hệ bạn để giải đáp càng sớm càng tốt')
+            }
+        });
+    </script>
+
+</head>
+
+<body onscroll="changeColor()" ng-app="myApp" ng-controller="mainController" ng-init="load()">
+    <div class="truecontainer">
+        <nav ng-include="'/Assignment/nav.html'" id="navBarFunction" class="navbar-expand-lg position-fixed w-100"
+            style="z-index:2;">
+        </nav>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="mb-2 row m-0">
+            <form name="myForm" class="articleComponent col-lg m-5">
+                <div class="form-control m-0 w-100 text-center font-italic text-light font-weight-bold"
+                    style="border:none;background-color:#396b44;font-size:25px">Xin
+                    hãy để lại câu hỏi,
+                    lời
+                    góp ý nhé các bạn!!</div><br />
+                <label class="form-control m-0 p-0 font-weight-bold" style="border:none;background:none">Tên:
+                </label>
+                <input name="tendaydu" required ng-minlength="5" ng-pattern="/^[^0-9!@#$%^&*()]+$/"
+                    ng-model="userInfor.tenDayDu" class="form-control m-0 font-italic"
+                    style="background:none;border:none;border-bottom:3px solid rgb(83, 83, 83);border-radius:0px"
+                    placeholder="Nhập họ và tên"><span ng-show="myForm.tendaydu.$invalid" class="formDanger">Email cần
+                    tối
+                    thiểu 5 ký tự và phải đúng định
+                    dạng email</span><br />
+                <label class="form-control m-0 p-0 font-weight-bold" style="border:none;background:none">Email:
+                </label>
+                <input name="email" ng-model="userInfor.email" required ng-minlength="5"
+                    ng-pattern="/^(([A-Za-z0-9/.])+(@)([a-z0-9/.])+)$/" class="form-control m-0 font-italic"
+                    style="background:none;border:none;border-bottom:3px solid rgb(83, 83, 83);border-radius:0px"
+                    placeholder="Nhập email">
+                <span ng-show="myForm.email.$invalid" class="formDanger">Email cần tối thiểu 5 ký tự và phải đúng định
+                    dạng email</span><br />
+                <label class="form-control m-0 p-0 font-weight-bold" style="border:none;background:none">Nội
+                    dung: </label>
+                <textarea name="noidung" class="form-control m-0 font-italic" required ng-minlength="10"
+                    style="background:none;border:none;border-bottom:3px solid rgb(83, 83, 83);border-radius:0px"
+                    placeholder="Nhập nội dung bạn muốn feedback"></textarea>
+                <span ng-show="myForm.noidung.$invalid" class="formDanger">Nội dung gửi cần tối thiểu chứa đủ 10 ký
+                    tự</span>
+                <button ng-click="send()" ng-disabled="myForm.$invalid"
+                    class="form-control mt-3 p-0 font-weight-bold saveButtonSetting text-light">Gửi
+                    feedback</button>
+            </form>
+        </div>
+        <footer ng-include="'/Assignment/footer.html'">
+
+        </footer>
+    </div>
+</body>
+
+</html>

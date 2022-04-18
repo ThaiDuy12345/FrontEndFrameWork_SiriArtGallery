@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/Assignment/Assignment.css">
+    <script src="/Bootstrap_Jquery/js/angular.min.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular-route.js"></script>
+    <script src="/Assignment/Js/ArrayJS.js"></script>
+    <script src="/Assignment/Js/SessionsJS.js"></script>
+    </link>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('mainController', function ($scope) {
+            $scope.email = null;
+            $scope.load = function () {
+                if (getSessions("Email") != null) {
+                    $scope.email = getSessions("Email");
+                } else {
+                    $scope.email = null;
+                }
+            }
+            $scope.logout = function () {
+                alert("Đăng xuất thành công");
+                removeAllSessions();
+                $scope.email = null;
+                location.reload();
+            }
+        });
+    </script>
+</head>
+
+<body onscroll="changeColor()" ng-app="myApp" ng-controller="mainController" ng-init="load()">
+    <div class="truecontainer">
+        <nav ng-include="'/Assignment/nav.html'" id="navBarFunction" class="navbar-expand-lg position-fixed w-100"
+            style="z-index:2;">
+        </nav>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="mb-2 row mt-5 m-0">
+            <div class="articleComponent col-lg m-5">
+                <div class="form-control m-0 w-100 text-center font-italic text-dark font-weight-bold"
+                    style="border:none;background-color:none;background:none;font-size:40px">Question and answer center
+                </div><br />
+                <div class="w-100">
+                    <div class="w-100 display-block font-italic" style="font-size:30px;color:#1C5B33">- Một số câu hỏi
+                        chung về
+                        web:</div>
+                    <div class="text-dark m-5" style="border:none;background:none;background-color:none">
+                        <label for="" style="font-size:25px">Trang web này là gì?</label>
+                        <div
+                            style="font-size:20px;color:rgb(119, 119, 119);border:none;background:none;background-color:none">
+                            Đây là trang web tổng hợp thư viện các bức art của mình(@Sirikakire) như 1 self-blog web,
+                            ngoài ra web có chưa các bài test, các bài self-teach để giúp các bạn có thêm kiến thức về
+                            hội hoạ, ngoài ra thúc đẩy động lực các bạn luyện tập vẽ mỗi ngày
+                        </div>
+                    </div>
+                    <div class="text-dark m-5" style="border:none;background:none;background-color:none">
+                        <label for="" style="font-size:25px">Tại sao tôi cần phải đăng ký tài khoản cho
+                            trang web này?</label>
+                        <div
+                            style="font-size:20px;color:rgb(119, 119, 119);border:none;background:none;background-color:none">
+                            Việc đăng ký tài khoản không tốn nhiều thời gian, và nó hoàn toàn miễn phí. Khi bạn đăng ký
+                            tài khoản, bạn sẽ được nhận thông báo qua email mỗi khi mình đăng lên 1 bức hoạ art mới,
+                            ngoài ra bạn có quyền truy cập vào bộ thư viện Commission(Vẽ tranh thuê) của mình. Hơn hết
+                            tất cả là các bạn được tham các bài test mình đã chuẩn bị sẵn(có điểm ngay) nhằm cái thiện
+                            kiến thức hội hoạ của các bạn.
+                        </div>
+                    </div>
+                    <div class="w-100 display-block font-italic" style="font-size:30px;color:#1C5B33">- Một số câu hỏi
+                        cá nhân về Sirikakire:</div>
+                    <div class="text-dark m-5" style="border:none;background:none;background-color:none">
+                        <label for="" style="font-size:25px">Bạn đã luyện vẽ được bao lâu?</label>
+                        <div
+                            style="font-size:20px;color:rgb(119, 119, 119);border:none;background:none;background-color:none">
+                            Vào ngày 30-09-2020, mình đã bắt đầu đặt bút vào giấy và luyện tập vẽ. Tính đến bây giờ là
+                            31-03-2022, có thể nói đã hơn được 1 năm và gần 1 năm rưỡi.
+                        </div>
+                    </div>
+                    <div class="text-dark m-5" style="border:none;background:none;background-color:none">
+                        <label for="" style="font-size:25px">Bạn tự học vẽ hay học ở một lớp học vẽ chuyên nghiệp, bạn
+                            có gặp khó khăn nào trong lúc mới học vẽ không?</label>
+                        <div
+                            style="font-size:20px;color:rgb(119, 119, 119);border:none;background:none;background-color:none">
+                            Hồi đó mình bắt đầu những chuỗi ngày khổ luyện vẽ của mình, và tất cả đều là nỗ lực tự học
+                            vẽ của mình. Tất nhiên trong lúc học vẽ như bao mọi người, mình cũng sẽ gặp rất nhiều khó
+                            khăn, khổ nhất chính là không có tài liệu lộ trình học vẽ cụ thể trên mạng. Nhưng sau đó
+                            mình đã tìm ra một trang web mang tên "Drawabox" để luyện vẽ.
+                        </div>
+                    </div>
+                    <div class="text-dark m-5" style="border:none;background:none;background-color:none">
+                        <label for="" style="font-size:25px">Bạn lúc đầu mới học vẽ có cảm thấy nản không? Ai là nguồn
+                            động lực để bạn luôn giữ vững cho tới bây giờ</label>
+                        <div
+                            style="font-size:20px;color:rgb(119, 119, 119);border:none;background:none;background-color:none">
+                            Có, rất là nản. Nỗ lực tự học trong nhiều ngày nhưng không thấy kết quả tất nhiên sẽ rất dễ
+                            bỏ cuộc. Tuỳ nhiên "có công mài sắc có ngày nên kim", đó là câu nói giúp mình giữ vững lập
+                            trường mỗi ngày đến bây giờ, ngoài ra mình có các bạn trên discord ủng hộ mình theo năm
+                            tháng.
+                        </div>
+                    </div>
+                    <div class="text-dark m-5" style="border:none;background:none;background-color:none">
+                        <label for="" style="font-size:25px">Tôi cũng muốn học vẽ giống bạn, tôi nên làm theo lộ trình
+                            nào và nên làm gì đầu tiên?</label>
+                        <div
+                            style="font-size:20px;color:rgb(119, 119, 119);border:none;background:none;background-color:none">
+                            Theo như ý kiến cá nhân của mình, nếu như bạn là người mới học vẽ. Mình khuyên bạn nên tập
+                            theo lộ trình trên web "Drawabox", trang web có rất đầy đủ các bài lession từ dễ tới khó.
+                            Ngoài ra kết hợp sử dụng các bài test trên trang web của mình để bổ sung lý thuyết vững
+                            chắc. Việc làm đầu tiên bạn nên làm khi bạn mới học vẽ chính là luyện vững nét bút, chúng là
+                            điều tất yếu và sẽ đi theo bạn cho đến cuối sự nghiệp vẽ của bạn.
+                        </div>
+                    </div>
+                    <div class="text-dark m-5" style="border:none;background:none;background-color:none">
+                        <label for="" style="font-size:25px">Sản phẩm hội hoạ bạn bán được là bao nhiêu tiền? Làm sao để
+                            tôi có thể mở gian hàng của riêng tôi?</label>
+                        <div
+                            style="font-size:20px;color:rgb(119, 119, 119);border:none;background:none;background-color:none">
+                            Sản phẩm đầu mình bán được là 25$. Để có thể mở được gian hàng hội hoạ vẽ thuê của bạn, bạn
+                            có "bảng thông tin gian hàng" có chứa 3 yếu tố chính là: "Bảng giá", "Điều khoản dịch vụ",
+                            "Thông tin liên lạc, thông tin thanh toán và điều kiện vẽ"<br /><br />
+                            + Bảng giá: vui lòng phân loại giá theo từng mục, từng loại một cách rõ ràng cho khách lựa
+                            chọn.<br />
+                            + Điều khoản và dịch vụ: bất cứ dịch vụ nào cũng cần có thứ này, nó giúp bảo vệ quyền lợi
+                            của bạn và người mua.<br />
+                            + Thông tin liên lạc, thông tin thanh toán và điều kiện vẽ: Phần này là tuỳ chọn nhưng
+                            khuyến khích các bạn ghi rõ nội dung để đảm bảo sự tin tưởng giữa bạn và khách hàng.
+                        </div>
+                    </div>
+                    <div class="text-dark m-5" style="border:none;background:none;background-color:none">
+                        <label for="" style="font-size:25px">Tôi đã mở gian hàng vẽ của tôi, nhưng không có ai tới mua
+                            hàng, tôi nên làm gì?</label>
+                        <div
+                            style="font-size:20px;color:rgb(119, 119, 119);border:none;background:none;background-color:none">
+                            Việc lần đầu mở đơn hàng của bạn và không ai mua là điều hoàn toàn bình thường, sẽ mất một
+                            thời gian để khách hàng biết tới gian hàng của bạn. Cho tới khi đó, bạn hãy quảng bá bản
+                            thân một chúc bằng cách chia sẻ art của bạn, gian hàng của bạn, bài đăng của bạn trên các
+                            trang web hội hoại nổi tiếng như Pinterest, Deviantart,...
+                        </div>
+                    </div>
+                    <div class="text-dark m-5" style="border:none;background:none;background-color:none">
+                        <label for="" style="font-size:25px">Tôi là một người mới vào con đường vẽ, thì phải mất bao
+                            nhiêu lâu mới có đủ trình độ để mở gian hàng và bán?</label>
+                        <div
+                            style="font-size:20px;color:rgb(119, 119, 119);border:none;background:none;background-color:none">
+                            Trên thực tế thì chẳng có điều luật nào bắt bạn phải thuộc trình độ "Professional" mới có
+                            thể mở gian hàng, bạn luôn có thể mở gian hàng dù là người mới vào vẽ, tuy nhiên hầu như sẽ
+                            không có ai mua. Điều tất yếu lúc này là bạn nên tiếp tục luyện vẽ qua ngày, cho tới khi có
+                            khách hỏi mua về gian hàng của bạn, lúc đó bạn có thể xác định rằng trình độ của bạn đã "đủ
+                            Pro"
+                        </div>
+                    </div>
+                    <div class="text-dark m-5" style="border:none;background:none;background-color:none">
+                        <label for="" style="font-size:25px">Mình muốn hỏi bạn về yếu tố thiết yếu để có thể thành công
+                            trong sự nghiệp hội hoạ tương lai</label>
+                        <div
+                            style="font-size:20px;color:rgb(119, 119, 119);border:none;background:none;background-color:none">
+                            Đã từng có câu "Con đường thành công không có dấu vết của kẻ lười biếng", thế nên điển bạn
+                            cần bây giờ để trở nên thực sự thành công trong tương lai, là sự kiên trì, ham học hỏi,
+                            luyện tập mỗi ngày. Và mình đảm bảo rằng bạn sẽ thành công một ngày nào đó không xa!!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer ng-include="'/Assignment/footer.html'">
+
+            </footer>
+        </div>
+</body>
+
+</html>

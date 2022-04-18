@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <script src="/Bootstrap_Jquery/js/angular.min.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular-route.js"></script>
+    <script src="/Assignment/Js/ArrayJS.js"></script>
+    <script src="/Assignment/Js/SessionsJS.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <link rel="stylesheet" href="/Assignment/Assignment.css">
+    </link>
+    <script>
+        function setAnimation() {
+            document.getElementById("passwordForm").classList.remove("fadeInAnimation");
+            document.getElementById("loginForm").classList.remove("fadeOutAnimation");
+            document.getElementById("passwordForm").classList.add("fadeOutAnimation");
+            document.getElementById("loginForm").classList.add("fadeInAnimation");
+        }
+        function changeForm(status) {
+            if (status == true) {
+                document.getElementById("passwordForm").classList.remove("fadeOutAnimation");
+                document.getElementById("loginForm").classList.remove("fadeInAnimation");
+                document.getElementById("passwordForm").classList.add("fadeInAnimation");
+                document.getElementById("loginForm").classList.add("fadeOutAnimation");
+            } else {
+                document.getElementById("passwordForm").classList.remove("fadeInAnimation");
+                document.getElementById("loginForm").classList.remove("fadeOutAnimation");
+                document.getElementById("passwordForm").classList.add("fadeOutAnimation");
+                document.getElementById("loginForm").classList.add("fadeInAnimation");
+            }
+
+        }
+        var app = angular.module('myApp', []);
+        app.controller('mainController', function ($scope) {
+            $scope.load = function () {
+                if (getSessions("Email") != null) {
+                    location.href = "/Assignment/index.html";
+                }
+            }
+            $scope.logout = function () {
+                unsaveSessions("Email");
+                alert("Đăng xuất thành công");
+            }
+        });
+        app.controller('logInController', function ($scope) {
+            $scope.login = function () {
+                if (loginFunction($scope.loginEmail, $scope.loginPassword) == true) {
+                    alert("Đăng nhập thành công");
+                    saveSessions($scope.loginEmail);
+                    location.reload();
+                } else {
+                    alert("Tài khoản hoặc mật khẩu sai");
+                }
+            }
+            $scope.forgot = function () {
+                Email.send({
+                    Host: "smtp.elasticemail.com",
+                    Username: "thaiduynguyen.nt@gmail.com",
+                    //94C2E693F3B2593B5FD334008895A003C128
+                    //19A739B08B96F21C76A899ECCC5B5405E9801DF0D1BAF05F01167010B7897AA7775BEB8C8667727E721FB867F70D88D2
+                    Password: "94C2E693F3B2593B5FD334008895A003C128",
+                    To: $scope.loginEmail,
+                    From: "thaiduynguyen.nt@gmail.com",
+                    Subject: "Khôi phục mật khẩu từ trang web Siri Art Gallery",
+                    Body: "Đây là tin nhắn chỉ có chủ email mới nhìn được, mật khẩu khôi phục của bạn là: '" + getPassword($scope.loginEmail) + "'"
+                }).then(
+                    message => alert("Đã gửi mật khẩu bí mật cho bạn, xin vui lòng kiểm tra thông qua email đã nhập")
+                );
+            }
+            $scope.signup = function () {
+                if (loginFunction($scope.loginEmail, $scope.loginPassword) == false && ($scope.loginEmail != null && $scope.loginPassword != null)) {
+                    var acc = {
+                        tenDayDu: "",
+                        email: $scope.loginEmail,
+                        matKhau: $scope.loginPassword,
+                        gioiTinh: "",
+                        diaChi: "",
+                        dienThoai: "",
+                        cmnd: "",
+                        soBaiTestDaHoanThanh: 0
+                    };
+                    account[account.length] = acc;
+                    alert("Tài khoản đã được tạo, xin vui lòng đăng nhập");
+                } else {
+                    alert("Email đã tồn tại hoặc cái thông tin của bạn bị sai, xin vui chỉnh sửa và đăng ký hoặc đăng nhập lại, trong trường hợp bạn đã quên mật khẩu, hãy nhấn nút 'Khôi phục mật khẩu'")
+                }
+            }
+        });
+        app.controller('logInController1', function ($scope) {
+
+        });
+    </script>
+</head>
+
+<body onLoad="setAnimation()" ng-app="myApp" ng-controller="mainController" ng-init="load()">
+    <div class="truecontainer">
+        <nav ng-include="'/Assignment/nav.html'" id="navBarFunction" class="navbar-expand-lg position-fixed w-100"
+            style="z-index:2;">
+        </nav>
+        <div class="mb-2 row m-0 p-3">
+            <div class="col-lg p-5">
+                <div class="row" style="background-color:rgba(218, 245, 182, 0.767)">
+                    <div class="w-100 text-center mt-5" style="font-size:30px;Color:black;">
+                        Welcome to Siri art gallery, please login your account!!
+                    </div>
+                    <div class="col-lg-7">
+                        <img src="/Assignment/logBackground.png" class="w-100">
+                    </div>
+                    <form name="loginForm" id="loginForm" class="col-lg-5 m-auto" class="transition:0.5s"
+                        ng-controller="logInController">
+                        <label class="form-control m-0 p-0 font-weight-bold" style="border:none;background:none">Email:
+                        </label>
+                        <input name="loginEmail" required ng-minlength="5"
+                            ng-pattern="/^(([A-Za-z0-9/.])+(@)([a-z0-9/.])+)$/" type="email" ng-model="loginEmail"
+                            class="form-control m-0 font-italic"
+                            style="background:none;border:none;border-bottom:3px solid white;border-radius:0px"
+                            placeholder="Nhập Email">
+                        <span class="formDanger" ng-show="loginForm.loginEmail.$invalid">Email nhập vào cần đúng định
+                            dạng và cần đạt tối thiểu 5 ký tự</span><br /><br />
+                        <label class="form-control m-0 p-0 font-weight-bold"
+                            style="border:none;background:none">Password:</label>
+                        <input name="loginPassword" required ng-minlength="6" type="password" ng-model="loginPassword"
+                            class="form-control m-0 font-italic"
+                            style="background:none;border:none;border-bottom:3px solid white;border-radius:0px"
+                            placeholder="Nhập Mật khẩu">
+                        <span class="formDanger" ng-show="loginForm.loginPassword.$invalid">Mật khẩu nhập vào cần đạt
+                            tối thiểu 6 ký tự</span><br /><br />
+                        <button ng-disabled="loginForm.$invalid" ng-click="login()"
+                            class="form-control loginButtonSetting" style="font-size:15px">Login</button>
+                        <button ng-disabled="loginForm.$invalid" ng-click="signup()"
+                            class="form-control loginButtonSetting" style="font-size:15px">Sign
+                            up(Cần điền ô Email và
+                            Password)</button>
+                        <div class="form-control w-100 font-italic text-center" style="background:none;border:none">
+                            ---or---</div>
+                        <button onclick="changeForm(true)" class=" form-control loginButtonSetting"
+                            style="font-size:15px">Forgot
+                            password</button>
+                        <div class="text-bottom w-100 pt-5" style="color:rgb(109, 109, 109)">
+                            By clicking Log In, you confirm that u have read and agree to the Terms of Service, Privacy
+                            Policy, and to receive emails and updates.
+                        </div>
+                    </form>
+                    <form name="passwordForm" id="passwordForm" class="col-lg-5 m-auto" style="transition:0.5s"
+                        ng-controller="logInController">
+                        <label class="form-control m-0 p-0 font-weight-bold" style="border:none;background:none">Email:
+                        </label>
+                        <input name="forgotEmail" type="email" required ng-minlength="5"
+                            ng-pattern="/^(([A-Za-z0-9/.])+(@)([a-z0-9/.])+)$/" ng-model="loginEmail"
+                            class="form-control m-0 font-italic"
+                            style="background:none;border:none;border-bottom:3px solid white;border-radius:0px"
+                            placeholder="Nhập Email">
+                        <span class="formDanger" ng-show="passwordForm.forgotEmail.$invalid">Email nhập vào cần đúng
+                            định dạng và cần đạt tối thiểu 5 ký tự</span><br /><br />
+                        <button ng-disabled="passwordForm.$invalid" ng-click="forgot()"
+                            class="form-control loginButtonSetting" style="font-size:15px">Forgot
+                            password</button>
+                        <div class="form-control w-100 font-italic text-center" style="background:none;border:none">
+                            ---or---</div>
+                        <button onclick="changeForm(false)" class="form-control loginButtonSetting"
+                            style="font-size:15px">SignUp/Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

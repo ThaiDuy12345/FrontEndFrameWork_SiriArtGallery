@@ -1,0 +1,346 @@
+::-webkit-scrollbar {
+    display:none;
+}
+.truecontainer {
+    width: 85%;
+    margin: auto;
+}
+
+body {
+    background-color: #f2fbf4;
+    color: white;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+    position: relative;
+}
+
+.truecontainer>.row {
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    position: relative;
+    border: none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+nav {
+    background-color: #cce4d1;
+    left: 0px;
+    top: 0px;
+    font-family: 'Open Sans', sans-serif;
+    font-size:auto;
+    box-shadow: 0 1px 10px rgb(71, 71, 71);
+    transition:0.5s;
+}
+
+footer {
+    background-color:white;
+    height: 50px;
+}
+
+footer>div {
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 25px;
+}
+
+.itemComponent {
+    float: left;
+    margin-left: 30px;
+    width: 29%;
+    height: 290px;
+}
+
+
+.buttonComponent>button,
+.form-control button {
+    border: none;
+    font-weight: bold;
+    background-color: rgb(124, 197, 95);
+    color: rgb(209, 209, 209);
+    transition: 0.4s;
+}
+
+.buttonComponent>button:hover,
+.form-control button:hover {
+    background-color: rgb(209, 209, 209);
+    color: rgb(24, 24, 24);
+}
+
+td,
+th {
+    text-align: center;
+}
+
+button#patreon {
+    background-color: rgb(236, 143, 120);
+    border: none;
+    transition: 0.5s;
+    font-weight: bold;
+}
+
+button#twitter {
+    background-color: rgb(131, 238, 224);
+    border: none;
+    transition: 0.5s;
+    font-weight: bold;
+}
+
+button#discord {
+    background-color: rgb(85, 89, 92);
+    border: none;
+    transition: 0.5s;
+    font-weight: bold;
+}
+
+button#patreon:hover {
+    background-color: rgb(116, 47, 30);
+}
+
+button#twitter:hover {
+    background-color: rgb(31, 129, 116);
+}
+
+button#discord:hover {
+    background-color: rgb(41, 42, 42);
+}
+.nav-item>a {
+    color: #242145;
+    transition: 0.5s;
+}
+
+.nav-item>a:hover {
+    color: #c9ca68;
+}
+input.form-control:focus, textarea.form-control:focus, select.form-control:focus{
+    box-shadow:none;
+    outline:none;
+}
+#contactBox {
+    width: 700px;
+    background: none;
+    border: none;
+}
+
+aside,
+article {
+    font-family: 'Open Sans', sans-serif;
+}
+#feedbacka{
+    color:white;
+    background-color: rgb(90, 158, 63);
+    transition:0.5s;
+}
+#feedbacka:hover{
+    color:rgb(42, 42, 42);
+    background-color: rgb(168, 199, 155);
+    text-decoration: none;
+}
+a:hover{
+    text-decoration:none;
+}
+.aside-item-list>a{
+    background-color:#d7efd7;
+    color:rgb(97, 97, 97);
+    font-size:17px;
+    transition:0.5s;
+    text-align:center;
+}
+.aside-item-list>a:hover{
+    background-color:#81af8b;
+}
+html {
+    scroll-behavior: smooth;
+}
+#background1Index{
+    background-color:rgb(54, 119, 90);
+    background-image: url('/Assignment/b12.png');
+    background-size:cover;
+    background-position:center;
+    background-blend-mode: darken;
+    opacity:0.9;
+}
+#background2Index{
+    
+}
+#bIndex1{
+    border-radius:17px;
+    background-image: url('/Assignment/artDauTay.jpg');
+    background-size:100%;
+    background-position:center;
+    box-shadow:2px 2px 3px  gray;
+    transition: 0.5s;
+}
+#bIndex1:hover, #bIndex2:hover, #bIndex3:hover, #bIndex4:hover{
+    background-size:110%;
+}
+#bIndex2{
+    border-radius:17px;
+    background-image: url('/Assignment/art2021.png');
+    background-size:100%;
+    background-position:center;
+    box-shadow:2px 2px 3px  gray;
+    transition: 0.5s;
+}
+
+#bIndex3{
+    border-radius:17px;
+    background-image: url('/Assignment/art2022.png');
+    background-size:100%;
+    background-position:top;
+    box-shadow:2px 2px 3px  gray;
+    transition: 0.5s;
+}
+
+#bIndex4{
+    border-radius:17px;
+    background-image: url('/Assignment/artCommission.png');
+    background-size:100%;
+    background-position:center;
+    box-shadow:2px 2px 3px  gray;
+    transition: 0.5s;
+}
+#indexContent{
+    background-color: #2F3448;
+}
+#bIndex1 a,#bIndex2 a,#bIndex3 a,#bIndex4 a{
+    color:white;
+    border:none;
+    transition:0.5s;
+    background-color:#2f3449;
+}
+
+#bIndex1 a:hover,#bIndex2 a:hover,#bIndex3 a:hover,#bIndex4 a:hover{
+    background-color:rgb(218, 255, 210);
+    color:black;
+}
+#banner1{
+    background-image: url('/Assignment/banner.png');
+    background-size:cover;
+    background-position:center;
+}
+#banner2{
+    background-image: url('/Assignment/banner2.png');
+    background-size:100%;
+    background-repeat:no-repeat;
+    background-position:center;
+}
+#banner2 a, #banner1 a{
+    background-color:rgb(89, 161, 89);
+    color:white;
+    transition:0.5s;
+}
+#banner2 a:hover, #banner1 a:hover{
+    background-color:rgb(218, 255, 210);
+    color:black;
+}
+.center-component{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.joinButton{
+    background-color:rgb(37, 41, 70);
+    color: rgb(211, 211, 240);
+    font-weight:bold;
+    transition:0.5s;
+}
+.joinButton:hover{
+    background-color:rgb(86, 86, 135);
+    color: rgb(34, 34, 65);
+}
+.joinCard>div.card-img-top, .joinCard>div.card-footer{
+    background:none;
+    background-color:none;
+}
+.joinCard{
+    box-shadow: none;
+    transition:0.5s;
+}
+.joinCard:hover{
+    box-shadow: 0 0 5px green;
+}
+.testingChooseButton{
+    text-align:center;
+    width: 5%;
+    border:none;
+    background:none;
+    background-color:rgb(218, 218, 240);
+    color:rgb(73, 73, 73);
+    transition: 0.5s;
+}
+.testingChooseButton:hover{
+    background-color:rgb(101, 101, 146);
+    color:rgb(255, 255, 255);
+}
+.directButton2{
+    font-size:20px;
+    background-color:#e1dfff;
+    color:rgb(43, 43, 43);
+    margin:3px;
+    border:none;
+    transition:0.5s;
+}
+.directButton2:hover{
+    font-size:20px;
+    background-color:#555374;
+    color:rgb(255, 255, 255);
+}
+.directButton{
+    font-size:20px;
+    background:none;
+    color:white;
+    border:none;
+}
+.saveButtonSetting{
+    font-size:23px; 
+    background-color:rgb(211, 150, 192); 
+    border:none ;
+    transition:0.5s;
+}
+.saveButtonSetting:hover{
+    background-color:rgb(174, 106, 152); 
+}
+.saveButtonSetting:disabled{
+    color:rgb(165, 165, 165);
+    background-color:rgb(129, 91, 117); 
+}
+.loginButtonSetting{
+    font-size:23px; 
+    background-color:rgb(255, 237, 249); 
+    border:none ;
+    transition:0.5s;
+}
+.loginButtonSetting:hover{
+    background-color:rgb(174, 106, 152); 
+}
+.loginButtonSetting:disabled{
+    color:rgb(165, 165, 165);
+    background-color:rgb(129, 91, 117); 
+}
+.formDanger{
+    animation-name: fade-in;
+    color:rgb(209, 93, 93);
+    font-style: italic;
+}
+@keyframes fade-in{
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes fade-out{
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+.fadeInAnimation{
+    animation-name: fade-in;
+    animation-duration: 1s;
+    display:block;
+}
+.fadeOutAnimation{
+    animation-name: fade-out;
+    animation-duration: 1s;
+    display:none;
+}

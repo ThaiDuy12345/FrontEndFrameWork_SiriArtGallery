@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/Assignment/Assignment.css">
+    <script src="/Bootstrap_Jquery/js/angular.min.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular-route.js"></script>
+    <script src="/Assignment/Js/ArrayJS.js"></script>
+    <script src="/Assignment/Js/SessionsJS.js"></script>
+    </link>
+    <script>
+        function timer() {
+            var currentTime = getTimeSessions() == null ? 0 : parseInt(getTimeSessions());
+            var numberOfTime = 3 + currentTime;
+            saveTimeSessions(numberOfTime);
+        }
+        function timeCountDown(number) {
+            return number - 1;
+        }
+        var app = angular.module('myApp', ['ngRoute']);
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when('/TracNghiem/:ID', {
+                    templateUrl: 'tracNghiem.html',
+                    controller: 'mainTestingController'
+                })
+                .when('/Done', {
+                    templateUrl: 'Done.html',
+                    controller: 'mainTestingController'
+                })
+        });
+        app.controller('mainController', function ($scope) {
+            $scope.email = null;
+            $scope.load = function () {
+                if (getSessions("Email") != null) {
+                    $scope.email = getSessions("Email");
+                    setInterval(timer, 180000);
+                } else {
+                    $scope.email = null;
+                    location.href = "/Assignment/Login/login.html";
+                }
+            }
+            $scope.logout = function () {
+                alert("Đăng xuất thành công");
+                removeAllSessions();
+                $scope.email = null;
+                location.reload();
+            }
+        });
+        app.controller('inforController', function ($scope) {
+            $scope.load = function () {
+                $scope.User = getAccount(getSessions("Email"));
+                $scope.Time = countTime(getTimeSessions()) == null ? 0 : countTime(getTimeSessions());
+                $scope.testCoBan = getSessions("testCoBan") == null ? 0 : getSessions("testCoBan");
+                $scope.testNangCao = getSessions("testNangCao") == null ? 0 : getSessions("testNangCao");
+            }
+            $scope.lamTronSo = function (number) {
+                return Math.floor(number);
+            }
+        });
+        app.controller('testingController', function ($scope, $interval) {
+            $scope.load = function () {
+                var id = getTestSessions() == null ? null : getTestSessions();
+                if (id != null) {
+                    $scope.listTestLength = getTestList(parseInt(id)).length;
+                    $scope.mainTest = getTestObject(parseInt(id));
+                    $scope.currentTest = 0;
+                    $scope.done = false;
+                }
+            }
+            var time;
+            $scope.testTime = 0;
+            $scope.setTime = function () {
+                $scope.testTime = 30;
+                time = $interval(function () {
+                    $scope.testTime = timeCountDown($scope.testTime);
+                    if ($scope.testTime == 0) {
+                        $interval.cancel(time);
+                        $scope.endTest();
+                    }
+                }, 1000)
+            }
+            $scope.repeatTest = function () {
+                location.href = "/Assignment/TrangTracNghiem/Test.html";
+            }
+            $scope.countTest;
+            $scope.startTest = function () {
+                $scope.countTest = true;
+                $scope.currentTest = 1;
+                location.href = "#!TracNghiem/1";
+                var id = getTestSessions() == null ? null : getTestSessions();
+                var listTest = getTestList(parseInt(id));
+                for (var i = 0; i < listTest.length; i++) {
+                    removeResult(i);
+                }
+                $scope.setTime();
+            }
+            $scope.Next = function () {
+                $scope.currentTest++;
+                location.href = "#!TracNghiem/" + ($scope.currentTest);
+                if ($scope.currentTest == $scope.listTestLength) {
+                    $scope.done = true;
+                }
+            }
+            $scope.endTest = function () {
+                $scope.countTest = false;
+                var currentTest = $scope.currentTest;
+                var listAnswer = document.getElementsByName(currentTest + "_Question");
+                for (var i = 0; i < listAnswer.length; i++) {
+                    if (listAnswer[i].checked == true) {
+                        saveResult(currentTest, listAnswer[i].value);
+                    }
+                }
+                $interval.cancel(time);
+                location.href = "#!Done";
+                $scope.done = true;
+                var id = getTestSessions() == null ? null : getTestSessions();
+                var index = id != null ? checkInTest(id) : null;
+                if (index == 1) {
+                    var ind = getSessions("testCoBan") == 0 || getSessions("testCoBan") == null || getSessions("testCoBan") == NaN ? 0 : getSessions("testCoBan");
+                    saveTestCoBanSessions(parseInt(ind) == 3 ? 3 : parseInt(ind) + 1);
+                } else if (index == 2) {
+                    var ind = getSessions("testNangCao") == 0 || getSessions("testNangCao") == null || getSessions("testNangCao") == NaN ? 0 : getSessions("testNangCao");
+                    saveTestNangCaoSessions(parseInt(ind) == 2 ? 2 : parseInt(ind) + 1);
+                }
+            }
+            $scope.submitQues = function () {
+                var currentTest = $scope.currentTest;
+                var listAnswer = document.getElementsByName(currentTest + "_Question");
+                for (var i = 0; i < listAnswer.length; i++) {
+                    if (listAnswer[i].checked == true) {
+                        saveResult(currentTest, listAnswer[i].value);
+                    }
+                }
+                $scope.Next();
+            }
+        });
+        app.controller('mainTestingController', function ($scope, $routeParams) {
+            if (window.location.href.includes("/TracNghiem")) {
+                var id = getTestSessions() == null ? null : getTestSessions();
+                var listTest = getTestList(parseInt(id));
+                $scope.testObject = listTest[$routeParams.ID - 1];
+            } else if (window.location.href.includes("/Done")) {
+                alert("Bạn đã hoàn thành bài test");
+                var id = getTestSessions() == null ? null : getTestSessions();
+                var listTest = getTestList(parseInt(id));
+                $scope.testLength = listTest.length;
+                $scope.mark = 0;
+                for (var i = 0; i < listTest.length; i++) {
+                    var answer = getResult(i + 1) == null ? null : getResult(i + 1);
+                    if (answer != null && answer == listTest[i].Answer) {
+                        $scope.mark++;
+                    }
+                }
+            }
+        })
+    </script>
+</head>
+
+<body ng-app="myApp" ng-controller="mainController" ng-init="load()">
+    <div class="truecontainer">
+        <nav ng-include="'/Assignment/nav.html'" id="navBarFunction" class="navbar-expand-lg position-fixed w-100"
+            style="z-index:2;">
+        </nav>
+        <br />
+        <div class="w-100 mt-5 m-0">
+            <div class="w-100" ng-controller="inforController" ng-init="load()">
+                <div class="w-100 center-component" style="height:300px;background-color:rgb(36, 36, 61)">
+                    <div class="h-75 m-auto" style="width:95%">
+                        <div class="w-100 h-25 center-component" style="font-size:20px;text-align:center">
+                            <span>Xin chào
+                                {{User.tenDayDu}}, chúc bạn một ngày tốt lành.
+                                <hr style="border: 0.5px solid rgba(255, 255, 255, 0.407)" />
+                            </span>
+                        </div>
+                        <div class="row w-100 m-0 p-0 h-75">
+                            <div class="col-sm-4 h-100" style="background-color:rgb(53, 53, 86)">
+                                <div class="row h-75">
+                                    <div class="col-lg-4 center-component"><span style="font-size:75px"><i
+                                                class="bi bi-person-circle"></i></span></div>
+                                    <div class="col-lg-8 center-component"><span
+                                            style="font-size:20px">{{User.tenDayDu}}</span></div>
+                                </div>
+                                <div class="h-25">
+                                    <div class="h-50 w-100">
+                                        <div class="w-100 text-left font-style-italic" style="font-size:13px">Tổng
+                                            thời gian online:(180min)</div>
+                                    </div>
+                                    <div class="h-50">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar"
+                                                style="width:{{Time}}%; background-color:rgb(119, 205, 119)"
+                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{Time}}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 h-100">
+                                <div class="w-100 h-75">
+                                    <div class="w-100 h50">
+                                        <span style="font-size:14px;">
+                                            Test cơ bản: <b style="color:rgb(119, 205, 119)">{{testCoBan}}</b>/3<br />
+                                            <div class="progress" style="border:none">
+                                                <div class="progress-bar" role="progressbar"
+                                                    style="width: {{testCoBan*100/3}}%; background-color:rgb(119, 205, 119)"
+                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                                    {{lamTronSo(testCoBan*100/3)}}%</div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <br />
+                                    <div class="w-100 h50">
+                                        <span style="font-size:14px;">
+                                            Test nâng cao: <b
+                                                style="color:rgb(119, 205, 119)">{{testNangCao}}</b>/2<br />
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar"
+                                                    style="width: {{testNangCao*100/2}}%; background-color:rgb(119, 205, 119)"
+                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                                    {{lamTronSo(testNangCao*100/2)}}%</div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="w-100 h-25 d-block text-right">
+                                    <span class="font-style-italic">Chúc bạn một ngày vui vẻ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100 p-0 m-0">
+                            <a href="/Assignment/TrangBoTro/Feedback.html" class="d-block w-100 text-right"
+                                style="font-size:10px;font-style:italic">Cần hỗ trợ?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100" ng-controller="testingController" ng-init="load()">
+                <div class=" p-3 w-100 center-component"
+                    style="background-color:rgb(36, 36, 61);clear:both;height:auto">
+                    <div class="w-75">
+                        <span class="w-100 d-block text-center" style="font-size:50px;">{{mainTest.title}}</span>
+                        <span class="w-100 d-block text-center"
+                            style="color:rgb(216, 216, 216)">"{{mainTest.description}}"</span>
+                    </div>
+                </div>
+                <div class="p-2 w-100 d-flex" style="background-color:rgb(36, 36, 61);clear:both;height:auto">
+                    <div class="w-100 row m-0">
+                        <div class="col-4 text-left">Câu hỏi: {{currentTest}}/{{listTestLength}}</div>
+                        <div class="col-8 text-right">Thời gian còn lại: {{testTime}}s</div>
+                    </div>
+                </div>
+                <div ng-controller="mainTestingController" class="w-100 p-2 center-component"
+                    style="height:400px;background-color:rgb(36, 36, 61);">
+                    <div ng-view class="" style="width:95%;height:95%">
+
+                    </div>
+                </div>
+                <div class="w-100 p-2 center-component" style="background-color:rgb(36, 36, 61);">
+                    <div class="row p-3" style="width:95%;height:95%">
+                        <button ng-click="submitQues()" ng-if="currentTest!=0 && done==false"
+                            class="directButton2 col-12">Submit
+                            Question</button>
+                        <button ng-click="endTest()" ng-if="currentTest!=0 && countTest==true"
+                            class="directButton2 col-12">End the
+                            test</button>
+                        <button ng-click="startTest()" ng-if="currentTest==0" class="directButton2 col-12">Start
+                            testing</button>
+                        <button ng-click="repeatTest()" ng-if="currentTest!=0 && countTest==false && done==true"
+                            class="directButton2 col-12">Repeat Test</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<footer ng-include="'/Assignment/footer.html'">
+
+</footer>
+
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <script src="/Bootstrap_Jquery/js/angular.min.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular.js"></script>
+    <script src="/Bootstrap_Jquery/js/angular-route.js"></script>
+    <script src="/Assignment/Js/ArrayJS.js"></script>
+    <script src="/Assignment/Js/SessionsJS.js"></script>
+    <link rel="stylesheet" href="/Assignment/Assignment.css">
+    </link>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('mainController', function ($scope) {
+            $scope.email = null;
+            $scope.load = function () {
+                if (getSessions("Email") != null) {
+                    $scope.email = getSessions("Email");
+                } else {
+                    $scope.email = null;
+                    location.href = "/Assignment/Login/login.html";
+                }
+            }
+            $scope.logout = function () {
+                alert("Đăng xuất thành công");
+                removeAllSessions();
+                $scope.email = null;
+                location.reload();
+            }
+        });
+        app.controller("myController1", function ($scope) {
+            $scope.load = function () {
+                $scope.userInfor = getAccount(getSessions("Email"));
+                $scope.adjustUserInfor = angular.copy($scope.userInfor);
+                $scope.adjustUserInfor.matKhau = "";
+                $scope.adjustUserInfor.diaChi = $scope.adjustUserInfor.diaChi == null || $scope.adjustUserInfor.diaChi == "" ? "An Giang" : $scope.adjustUserInfor.diaChi;
+                $scope.listTinhThanh = danhSachTinhThanh;
+            }
+            $scope.censor = function (pass) {
+                var truePass = "";
+                for (var i = 0; i < pass.length - 2; i++) {
+                    truePass = truePass + "*";
+                }
+                return truePass + pass.substring(pass.length - 2);
+            }
+            $scope.saveInfor = function () {
+                $scope.userInfor = angular.copy($scope.adjustUserInfor);
+                alert("Lưu thông tin tài khoản thành công");
+            }
+        });
+    </script>
+</head>
+
+<body ng-app="myApp" ng-controller="mainController" ng-init="load()">
+    <div class="truecontainer">
+        <nav ng-include="'/Assignment/nav.html'" id="navBarFunction" class="navbar-expand-lg position-fixed w-100"
+            style="z-index:2;">
+        </nav>
+        <br />
+        <br />
+        <br />
+        <div class="mt-5 row text-dark" ng-controller="myController1" ng-init="load();">
+            <div class="col-lg-4 h-100 m-0 p-2">
+                <div class="card mb-5" style="border:none">
+                    <div class="card-header text-light" style="background-color:rgb(142, 142, 142);border:none"><i
+                            class="bi bi-info-square-fill"></i> Thông
+                        tin tài khoản</div>
+                    <div class="m-auto p-0 w-100 card-body" style="color:gray">
+                        <div class="list-group-item w-100" style="background:none;border:none">Tên đầy đủ:
+                            {{userInfor.tenDayDu}}
+                        </div>
+                        <div class="list-group-item w-100" style="background:none;border:none">Email:
+                            {{userInfor.email}}
+                        </div>
+                        <div class="list-group-item w-100" style="background:none;border:none">Mật khẩu:
+                            {{censor(userInfor.matKhau)}}</div>
+                    </div>
+                </div>
+                <div class="card mb-5" style="border:none">
+                    <div class="card-header text-light" style="background-color:rgb(142, 142, 142);border:none"><i
+                            class="bi bi-info-square"></i> Thông
+                        tin chi tiết</div>
+                    <div class="m-auto w-100 p-0 card-body" style="color:gray;">
+                        <div class="list-group-item w-100" style="background:none;border:none">Giới tính:
+                            {{userInfor.gioiTinh}}</div>
+                        <div class="list-group-item w-100" style="background:none;border:none">Địa chỉ:
+                            {{userInfor.diaChi}}</div>
+                        <div class="list-group-item w-100" style="background:none;border:none">Số điện thoại:
+                            {{userInfor.dienThoai}}
+                        </div>
+                        <div class="list-group-item w-100" style="background:none;border:none">CMND: {{userInfor.cmnd}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form name="adjustForm" class="col-lg-8 h-100 m-0 p-2">
+                <div class="card mb-3" style="border:none">
+                    <div class="card-header text-light"
+                        style="background-color:rgb(142, 142, 142);border:none;font-size:18px"><i
+                            class="bi bi-info-square-fill"></i> Chỉnh sửa thông tin tài khoản</div>
+                    <div class="card-body" style="border:none">
+                        <div class="row mb-2">
+                            <div class="col-lg w-100">
+                                <label for="">Họ và tên</label>
+                                <input name="tenDayDu" type="text" class="form-control" required ng-minlength="2"
+                                    ng-pattern="/^[^0-9!@#$%^&*()]+$/" ng-model="adjustUserInfor.tenDayDu"
+                                    placeholder="Nhập họ và tên">
+                                <span class="formDanger" ng-show="adjustForm.tenDayDu.$invalid">Tên cần phải có độ dài
+                                    từ 4 chữ cái trở
+                                    lên, không chứa bất kỳ chữ số hay bất kỳ ký tự đặc biệt nào</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-lg-6">
+                                <label for="">Email</label>
+                                <input type="text" disabled class="form-control" ng-model="adjustUserInfor.email"
+                                    placeholder="Nhập Email">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="">Mật khẩu</label>
+                                <input name="matKhau" type="text" required ng-minlength="6" class="form-control"
+                                    ng-model="adjustUserInfor.matKhau" placeholder="Nhập mật khẩu">
+                                <span class="formDanger" ng-show="adjustForm.matKhau.$invalid">Mật khẩu cần có độ dài
+                                    tối thiểu từ 6 ký tự trở lên</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3" style="border:none">
+                    <div class="card-header text-light"
+                        style="background-color:rgb(142, 142, 142);border:none;font-size:18px"><i
+                            class="bi bi-info-square"></i> Chỉnh sửa thông tin chi
+                        tiết</div>
+                    <div class="card-body" style="border:none">
+                        <div class="row mb-2">
+                            <div class="col-lg-6">
+                                <label for="">Giới tính</label>
+                                <select ng-model="adjustUserInfor.gioiTinh" class="form-control">
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="">Địa chỉ</label>
+                                <select ng-model="adjustUserInfor.diaChi" class="form-control">
+                                    <option ng-repeat="i in listTinhThanh">{{i.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-lg">
+                                <label for="">Số điện thoại</label>
+                                <input name="dienThoai" type="text" ng-pattern="/^[0-9]{10,11}$/" class="form-control"
+                                    required ng-minlength="10" ng-maxlength="11" ng-model="adjustUserInfor.dienThoai"
+                                    placeholder="Nhập số điện thoại">
+                                <span class="formDanger" ng-show="adjustForm.dienThoai.$invalid">Số điện thoại cần có độ
+                                    dài ký tự 10-11 số và không chứa bất cứ chứ hay ký tự đặc biệt nào</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-lg">
+                                <label for="">CMND</label>
+                                <input name="cmnd" ng-pattern="/^(([0-9]{9})|([0-9]{12}))$/" type="text" required
+                                    ng-minlength="6" ng-maxlength="12" class="form-control"
+                                    ng-model="adjustUserInfor.cmnd" placeholder="Nhập số cmnd/cccd">
+                                <span class="formDanger" ng-show="adjustForm.cmnd.$invalid">Số CMND/CCCD cần có độ dài
+                                    ít nhất 6 ký tự hoặc 12 ký tự, không chứa bất kỳ chữ hay ký tự đặc biệt</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="border:none">
+                    <div class="card-body p-0 "><button ng-click="saveInfor()" ng-disabled="adjustForm.$invalid"
+                            class="saveButtonSetting text-light w-100">
+                            <i class="bi bi-journal-check"></i> Lưu thay đổi
+                        </button></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
